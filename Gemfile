@@ -25,13 +25,24 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.13'
 
+# Позволяет импортировать множество записей за один запрос
+# https://github.com/zdennis/activerecord-import
+gem 'activerecord-import', '~> 1.4'
+# решение, помогающие создавать файлы xlxs, но не умеет считывать
+gem 'caxlsx', '~> 3.2'
+# решение, помогающие правильным образом работать с представлениями
+gem 'caxlsx_rails', '~> 0.6'
 # декораторы
 gem 'draper', '~> 4.0'
+# гемы для разбиения по страничкам (kaminari выключен)
 gem 'kaminari', '~> 1.2'
 gem 'pagy', '~> 5.10'
+# позволяет работать с XLSX, считывать и модифицировать
+gem 'rubyXL', '~> 3.4'
 # для проверки корректности введенного email
 gem 'valid_email2', '~> 4.0'
-
+# решение, которое позволяет работать с архивами .zip
+gem 'rubyzip', '~> 2.3'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

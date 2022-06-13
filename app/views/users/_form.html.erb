@@ -40,7 +40,8 @@
     </div>
   </div>
 
-  <% unless @user.new_record? %>
+<%# jотображаться будет в том случае, если мы редактируем профиль %>
+  <% unless @user.new_record?%>
     <div class="mb-3 row">
       <div class="col-sm-2 col-form-label">
         <%= f.label :old_password %>
@@ -51,6 +52,9 @@
       </div>
     </div>
   <% end %>
-  <%= f.submit (@user.new_record? ? "Register!" : "Save"),
-    class: 'btn btn-primary btn-lg' %>
-<% end %>
+
+<%# Если этот объект в БД еще не присутствует, а только в памяти, то
+<%# это новая запись, а юзер только хочет зарегистрироваться, а если
+он в БД есть, то хочет себя обновить%>
+<%= f.submit (@user.new_record? ? "Register!" : "Save"),
+    class: 'btn btn-primary btn-lg' %><% end %>
