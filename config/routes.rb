@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  # create - будет проверять корректность введенных данных и пускать пользователя в систему
+  # new - отображать форму для входа
+  # destroy - позволить юзерам из системы выходить
+  # при входе юзера в систему он создает новую сессия
+  # Если хотим, чтоб не было никаких идентификаторов в маршрутах, пишем
+  # "resource" а не "resources"
+  resource :session, only: %i[new create destroy]
+
   resources :users, only: %i[new create edit update]
 
   resources :questions do

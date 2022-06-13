@@ -23,7 +23,7 @@ class AnswersController < ApplicationController
       # сортировка ответов по убыванию (самый свежий - сверху). Определим переменную
       # @answers, ибо render выдает только разметку на экран
       @pagy, @answers = pagy @question.answers.order created_at: :desc
-      # @answers = @answers.decorate
+      @answers = @answers.decorate
       # по умолчанию RoR искала бы в директории "Answers"
       render 'questions/show'
     end

@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   before_action :set_question!, only: %i[show destroy edit update]
   # информация на экран о конкретной записи
   def show
-    # @question = @question.decorate
+    @question = @question.decorate
     @answer = @question.answers.build
 
     # сортировка, created_at - поле в БД
@@ -14,7 +14,7 @@ class QuestionsController < ApplicationController
     # методы можно один за другим использоваться (по цепочке)
 
     @pagy, @answers = pagy @question.answers.order(created_at: :desc)
-    # @answers = @answers.decorate
+    @answers = @answers.decorate
   end
 
   # удалить вопрос
@@ -53,7 +53,7 @@ class QuestionsController < ApplicationController
   # вопросы, которые уже разбиты по страничкам
   def index
     @pagy, @questions = pagy Question.order(created_at: :desc)
-    # @questions  = @questions.decorate
+    @questions  = @questions.decorate
   end
 
   # инстанцируется новая запись пользователем
