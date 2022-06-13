@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserDecorator < Draper::Decorator
   # делигировать неизвестные методы самому объекту, который декарируем
   # методы типа "name", "email" будут делигированы в модель

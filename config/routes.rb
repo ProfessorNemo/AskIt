@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   # create - будет проверять корректность введенных данных и пускать пользователя в систему
   # new - отображать форму для входа

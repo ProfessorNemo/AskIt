@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Question < ApplicationRecord
   # создается отношение на стороне Question
   # если удаляется вопрос, то и все зависимые ответы

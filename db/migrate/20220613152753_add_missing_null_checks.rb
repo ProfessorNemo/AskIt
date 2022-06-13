@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddMissingNullChecks < ActiveRecord::Migration[6.1]
   def change
     # false - данная колонка пустой быть не может

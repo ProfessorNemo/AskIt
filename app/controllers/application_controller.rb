@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   # модуль для правильного разбиения по страничкам
   include Pagy::Backend

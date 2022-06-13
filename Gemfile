@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -23,9 +25,11 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.13'
 
+# декораторы
 gem 'draper', '~> 4.0'
 gem 'kaminari', '~> 1.2'
 gem 'pagy', '~> 5.10'
+# для проверки корректности введенного email
 gem 'valid_email2', '~> 4.0'
 
 # Use Active Storage variant

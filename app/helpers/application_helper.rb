@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   # модуль для фронтенда для выдачи на экран навигации для пользователя
   include Pagy::Frontend
