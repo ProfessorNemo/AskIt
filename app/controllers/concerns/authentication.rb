@@ -43,9 +43,7 @@ module Authentication
     def require_authentication
       return if user_signed_in?
 
-      # rubocop:disable Rails/I18nLocaleTexts
-      flash[:warning] = 'You are not signed in!'
-      # rubocop:enable Rails/I18nLocaleTexts
+      flash[:warning] = t 'global.flash.not_signed_in'
       redirect_to root_path
     end
 
@@ -54,9 +52,7 @@ module Authentication
     def require_no_authentication
       return unless user_signed_in?
 
-      # rubocop:disable Rails/I18nLocaleTexts
-      flash[:warning] = 'You are already signed in!'
-      # rubocop:enable Rails/I18nLocaleTexts
+      flash[:warning] = t 'global.flash.already_signed_in'
       redirect_to root_path
     end
 

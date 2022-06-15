@@ -21,11 +21,9 @@ class QuestionsController < ApplicationController
 
   # удалить вопрос
   def destroy
-    # rubocop:disable Rails/I18nLocaleTexts
     @question.destroy
-    flash[:success] = 'Question deleted!'
+    flash[:success] = t('.success')
     redirect_to questions_path
-    # rubocop:enable Rails/I18nLocaleTexts
   end
 
   # редактировать вопрос
@@ -33,14 +31,12 @@ class QuestionsController < ApplicationController
 
   # обновить наш вопрос с новыми параметрами
   def update
-    # rubocop:disable Rails/I18nLocaleTexts
     if @question.update question_params
-      flash[:success] = 'Question updated!'
+      flash[:success] = t('.success')
       redirect_to questions_path
     else
       render :edit
     end
-    # rubocop:enable Rails/I18nLocaleTexts
   end
 
   # Вытащить из БД все вопросы,отсортировать и сохранить в переменную @questions
@@ -66,18 +62,16 @@ class QuestionsController < ApplicationController
 
   # создается образец класса Question с параметрами "question_params"
   def create
-    # rubocop:disable Rails/I18nLocaleTexts
     @question = Question.new question_params
     # если вопрос сохранить удалось, перенаправить пользователя по пути /questions
     # приходит ответ от сервера 302 "переходи на другую страницу"
     if @question.save
-      flash[:success] = 'Question created!'
+      flash[:success] = t('.success')
       redirect_to questions_path
     else
       # нужно отрендерить еще раз представление "new.html.erb"
       render :new
     end
-    # rubocop:enable Rails/I18nLocaleTexts
   end
 
   private

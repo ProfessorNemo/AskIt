@@ -24,9 +24,7 @@ module Admin
     def create
       if params[:archive].present?
         UserBulkService.call params[:archive]
-        # rubocop:disable Rails/I18nLocaleTexts
-        flash[:success] = 'Users imported!'
-        # rubocop:enable Rails/I18nLocaleTexts
+        flash[:success] = t '.success'
       end
 
       redirect_to admin_users_path

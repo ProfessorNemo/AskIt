@@ -26,16 +26,14 @@ class SessionsController < ApplicationController
       # flash[:warning] = 'Incorrect email and/or password!'
       # redirect_to session_path
       # или
-      flash.now[:warning] = 'Incorrect email and/or password!'
+      flash.now[:warning] = t '.invalid_creds'
       render :new
     end
   end
 
   def destroy
     sign_out
-    # rubocop:disable Rails/I18nLocaleTexts
-    flash[:success] = 'See you later!'
-    # rubocop:enable Rails/I18nLocaleTexts
+    flash[:success] = t '.success'
     redirect_to root_path
   end
 
@@ -45,7 +43,7 @@ class SessionsController < ApplicationController
     sign_in user
     # запомнить пользователя, если он того хочет
     remember(user) if params[:remember_me] == '1'
-    flash[:success] = "Welcome back, #{current_user.name_or_email}!"
+    flash[:success] = t('.success', name: current_user.name_or_email)
     redirect_to root_path
   end
 end

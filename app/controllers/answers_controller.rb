@@ -14,8 +14,7 @@ class AnswersController < ApplicationController
     @answer = @question.answers.build answer_params
 
     if @answer.save
-      # rubocop:disable Rails/I18nLocaleTexts
-      flash[:success] = 'Answer created!'
+      flash[:success] = t '.success'
       # переводит пользователя на машрут, который заново обрабатывается
       # обращается к нужному представлению "show", и все перем-е устанавливаются
       redirect_to question_path(@question)
@@ -29,30 +28,25 @@ class AnswersController < ApplicationController
       # по умолчанию RoR искала бы в директории "Answers"
       render 'questions/show'
     end
-    # rubocop:enable Rails/I18nLocaleTexts
   end
 
   def destroy
-    # rubocop:disable Rails/I18nLocaleTexts
     @answer.destroy
-    flash[:success] = 'Answer deleted!'
+    flash[:success] = t '.success'
     redirect_to question_path(@question)
-    # rubocop:enable Rails/I18nLocaleTexts
   end
 
   def edit; end
 
   def update
-    # rubocop:disable Rails/I18nLocaleTexts
     if @answer.update answer_params
-      flash[:success] = 'Answer successfully updated!'
+      flash[:success] = t '.success'
       # + переброска к конкретному ответу на странице вопроса
       # <%= tag.article class: 'mb-3 card', id: dom_id(answer) do %> <% end %>
       redirect_to question_path(@question, anchor: dom_id(@answer))
     else
       render :edit
     end
-    # rubocop:enable Rails/I18nLocaleTexts
   end
 
   private
