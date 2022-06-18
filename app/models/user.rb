@@ -9,6 +9,13 @@ class User < ApplicationRecord
   # "has_secure_password" -  метод, который умеет защищать пароли. Пропишем валидации сами:
   has_secure_password validations: false
 
+  has_many :questions, dependent: :destroy
+  has_many :answers, dependent: :destroy
+
+  # before_save - функция обратного вызова, которая выполняется каждый раз перед тем,
+  # как запись сохраняется в БД, когда email изменился с прошлого сохранения
+  before_save :set_gravatar_hash, if: :email_changed?
+
   # Пароль д.б. подтвержден. "confirmation: true" - встроенная валидация, которая
   # будет проверять, что аттрибут "password" имеет такое же значение, как другое
   # поле, название которого записывается как "password".
@@ -62,6 +69,20 @@ class User < ApplicationRecord
   end
 
   private
+
+  # функция обратного вызова
+  def set_gravatar_hash
+    return if email.blank?
+
+    # Генерируем хэш на основе email-юзера, удаляем пробелы сначала и конца и преобразуем
+    # его к нижнему регистру - это требования граватара. Потом на основе этого делаем хэш.
+    hash = Digest::MD5.hexdigest email.strip.downcase
+
+    # присвоить сохраняемой в данный момент записи (для которой выполнен callback) gravatar_hash
+    # и установить его в значение hash. Перед тем, как юзера сохранить (user.save), к нему
+    # пристыкуется еще значение "self.gravatar_hash = hash"
+    self.gravatar_hash = hash
+  end
 
   # сгенерировать хэш на основе строки
   def digest(string)

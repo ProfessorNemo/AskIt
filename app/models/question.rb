@@ -4,6 +4,7 @@ class Question < ApplicationRecord
   # создается отношение на стороне Question
   # если удаляется вопрос, то и все зависимые ответы
   has_many :answers, dependent: :destroy
+  belongs_to :user
 
   # Логика проверки двух полей в БД
   # Чтобы не отправляли пустые вопросы, используем проверки, чтобы

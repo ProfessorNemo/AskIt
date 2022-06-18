@@ -62,7 +62,8 @@ class QuestionsController < ApplicationController
 
   # создается образец класса Question с параметрами "question_params"
   def create
-    @question = Question.new question_params
+    # Для текущего пользователя построить новый вопрос с такими то параметрами
+    @question = current_user.questions.build question_params
     # если вопрос сохранить удалось, перенаправить пользователя по пути /questions
     # приходит ответ от сервера 302 "переходи на другую страницу"
     if @question.save

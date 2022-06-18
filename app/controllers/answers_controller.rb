@@ -11,7 +11,7 @@ class AnswersController < ApplicationController
 
   def create
     # создаваемые ответы привязываем к вопросу
-    @answer = @question.answers.build answer_params
+    @answer = @question.answers.build answer_create_params
 
     if @answer.save
       flash[:success] = t '.success'
@@ -39,7 +39,7 @@ class AnswersController < ApplicationController
   def edit; end
 
   def update
-    if @answer.update answer_params
+    if @answer.update answer_update_params
       flash[:success] = t '.success'
       # + переброска к конкретному ответу на странице вопроса
       # <%= tag.article class: 'mb-3 card', id: dom_id(answer) do %> <% end %>
@@ -51,7 +51,12 @@ class AnswersController < ApplicationController
 
   private
 
-  def answer_params
+  # в параметры для создания ответа юзером добавлен параметр "user_id"
+  def answer_create_params
+    params.require(:answer).permit(:body).merge(user_id: current_user.id)
+  end
+
+  def answer_update_params
     params.require(:answer).permit(:body)
   end
 
