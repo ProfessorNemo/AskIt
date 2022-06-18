@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # https://github.com/caxlsx/caxlsx/tree/master/examples
 
 # создать новый рабочий документ
@@ -25,4 +26,3 @@ wb.add_worksheet(name: 'User') do |sheet|
   sheet.add_row ['Created at', user.created_at], style: [nil, date_cell]
   sheet.add_row ['Updated at', user.updated_at], style: [nil, date_cell]
 end
-

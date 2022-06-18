@@ -36,7 +36,6 @@ gem 'draper', '~> 4.0'
 # для подгрузки в приложение типичных переводов (месяцы, дни недели, валюты и т.д.)
 gem 'rails-i18n', '~> 7.0.3'
 # гемы для разбиения по страничкам (kaminari выключен)
-gem 'kaminari', '~> 1.2'
 gem 'pagy', '~> 5.10'
 # решение, которое позволяет загружать дополнительную конфигурацию из файлов .env
 gem 'dotenv-rails', '~> 2.7'
@@ -69,6 +68,7 @@ group :development do
   gem 'listen', '~> 3.3'
   gem 'rack-mini-profiler', '~> 2.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'bullet', '~> 7'
   gem 'rubocop', '~> 1.30', require: false
   gem 'rubocop-performance', '~> 1.14', require: false
   gem 'rubocop-rails', '~> 2.14', require: false

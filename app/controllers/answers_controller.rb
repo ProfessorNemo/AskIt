@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AnswersController < ApplicationController
+  include QuestionsAnswers
   # модуль для якорей
   include ActionView::RecordIdentifier
   # и для create и для destroy
@@ -19,14 +20,7 @@ class AnswersController < ApplicationController
       # обращается к нужному представлению "show", и все перем-е устанавливаются
       redirect_to question_path(@question)
     else
-      # декарирование вопроса если ответ сохранить не удалось
-      @question = @question.decorate
-      # сортировка ответов по убыванию (самый свежий - сверху). Определим переменную
-      # @answers, ибо render выдает только разметку на экран
-      @pagy, @answers = pagy @question.answers.order created_at: :desc
-      @answers = @answers.decorate
-      # по умолчанию RoR искала бы в директории "Answers"
-      render 'questions/show'
+      load_question_answers(do_render: true)
     end
   end
 

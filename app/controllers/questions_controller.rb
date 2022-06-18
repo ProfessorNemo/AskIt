@@ -1,22 +1,12 @@
 # frozen_string_literal: true
 
 class QuestionsController < ApplicationController
+  include QuestionsAnswers
   before_action :set_question!, only: %i[show destroy edit update]
+
   # информация на экран о конкретной записи
   def show
-    @question = @question.decorate
-    @answer = @question.answers.build
-
-    # сортировка, created_at - поле в БД
-    # @answers =.........params[:page].per(2) - сколько показывать ответов на странице (по 3 ответа)
-    # @answers = @question.answers.order(created_at: :desc).page(params[:page]).per(3)
-
-    # или альтернатива с лимитированием (вывести 2 первых ответа)
-    # @answers = Answer.where(question: @question).limit(2).order created_at: :desc
-    # методы можно один за другим использоваться (по цепочке)
-
-    @pagy, @answers = pagy @question.answers.order(created_at: :desc)
-    @answers = @answers.decorate
+    load_question_answers
   end
 
   # удалить вопрос
@@ -50,7 +40,7 @@ class QuestionsController < ApplicationController
   # pagy - выдаст объект, с помощью которого отрисовывается навигация и выдаст
   # вопросы, которые уже разбиты по страничкам
   def index
-    @pagy, @questions = pagy Question.order(created_at: :desc)
+    @pagy, @questions = pagy Question.includes(:user).order(created_at: :desc)
     @questions  = @questions.decorate
   end
 

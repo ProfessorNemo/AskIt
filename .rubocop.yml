@@ -11,3 +11,6 @@ Style/Documentation:
 
 Rails/FilePath:
   EnforcedStyle: arguments
+
+Layout/EndOfLine:
+   Enabled: False
