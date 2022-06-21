@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/faker-ruby/faker.git
-  revision: 9e54d590f9ba5009e345aacd6d04555831ac3c99
+  revision: 1f5af81196adb56d4d2f387204b64f77273ac3b1
   branch: master
   specs:
     faker (2.21.0)
@@ -300,7 +300,7 @@ DEPENDENCIES
   dotenv-rails (~> 2.7)
   draper (~> 4.0)
   faker!
-  jbuilder (~> 2.7)
+  jbuilder (~> 2.11)
   listen (~> 3.3)
   lokalise_rails (~> 5)
   pagy (~> 5.10)

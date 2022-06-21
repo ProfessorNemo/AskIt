@@ -11,7 +11,13 @@
 # end
 
 # Нашли всех юзеров и после того как хэш пересчитали, юзеров сохранили
-User.find_each do |u|
-  u.send(:set_gravatar_hash)
-  u.save
+# User.find_each do |u|
+#   u.send(:set_gravatar_hash)
+#   u.save
+# end
+
+# создадим 30 тегов по случайным хипстерским словечкам
+30.times do
+  title = Faker::Hipster.word
+  Tag.create title: title
 end

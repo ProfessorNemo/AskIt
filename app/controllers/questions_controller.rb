@@ -40,8 +40,9 @@ class QuestionsController < ApplicationController
   # pagy - выдаст объект, с помощью которого отрисовывается навигация и выдаст
   # вопросы, которые уже разбиты по страничкам
   def index
-    @pagy, @questions = pagy Question.includes(:user).order(created_at: :desc)
-    @questions  = @questions.decorate
+    @tags = Tag.where(id: params[:tag_ids]) if params[:tag_ids]
+    @pagy, @questions = pagy Question.all_by_tags(@tags)
+    @questions = @questions.decorate
   end
 
   # инстанцируется новая запись пользователем
@@ -68,8 +69,10 @@ class QuestionsController < ApplicationController
   private
 
   # из присланных параметров найти вопрос и достать только title и body
+  # "tag_ids: []" - т.е. на данной позиции может идти целый массив из "id",
+  # и каждый id представляет собой один тег
   def question_params
-    params.require(:question).permit(:title, :body)
+    params.require(:question).permit(:title, :body, tag_ids: [])
   end
 
   def set_question!

@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  concern :commentable do
+    resources :comments, only: %i[create destroy]
+  end
+
+  namespace :api do
+    resources :tags, only: :index
+  end
   # например localhost/ru/questions, localhost/en/questions, localhost/questions
   # locale: /#{I18n.available_locales.join("|")}/ - проверка, что запрошенная локаль входит
   # в массив %i[en ru], а ("|") - "или" (локаль или такая, или такая.....)
@@ -15,15 +22,11 @@ Rails.application.routes.draw do
 
     resources :users, only: %i[new create edit update]
 
-    resources :questions do
-      resources :comments, only: %i[create destroy]
-
+    resources :questions, concerns: :commentable do
       resources :answers, except: %i[new show]
     end
 
-    resources :answers, except: %i[new show] do
-      resources :comments, only: %i[create destroy]
-    end
+    resources :answers, except: %i[new show], concerns: :commentable
 
     namespace :admin do
       resources :users, only: %i[index create show destroy]
