@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
     # конвертирует ее в хэш и сверяет с тем хэшем, который есть в БД.
     user = User.find_by email: params[:email]
     if user&.authenticate(params[:password])
-      do_sign_in @user
+      do_sign_in user
     else
       # flash[:warning] = 'Incorrect email and/or password!'
       # redirect_to session_path
