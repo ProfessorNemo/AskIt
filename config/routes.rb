@@ -29,7 +29,7 @@ Rails.application.routes.draw do
     resources :answers, except: %i[new show], concerns: :commentable
 
     namespace :admin do
-      resources :users, only: %i[index create show destroy]
+      resources :users, only: %i[index create edit update destroy]
     end
 
     # не нужен маршрут "new", потому что форма рендериться на другой странице

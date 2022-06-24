@@ -1,10 +1,16 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  # ролей может быть сколько угодно, наприер 3 - superadmin....
+  # Например: "u.admin_role?" - здесь role - suffix
+  enum role: { basic: 0, moderator: 1, admin: 2 }, _suffix: :role
+  # роль должна быть
+  validates :role, presence: true
+
   # создаем виртуальный аттрибут "old_password", в БД он попадать не будет. Чтобы
   # на объекте "user" существовал метод "old_password", с помощью которого
   # будем отрисовывать новое текстовое поле в форме, а потом проверять его значение
-  attr_accessor :old_password, :remember_token
+  attr_accessor :old_password, :remember_token, :admin_edit
 
   # "has_secure_password" -  метод, который умеет защищать пароли. Пропишем валидации сами:
   has_secure_password validations: false
@@ -27,7 +33,8 @@ class User < ApplicationRecord
 
   # Эту валидацию нужно запускать только при обновлении записи и только  в том случае,
   # если новый пароль был указан. Если нет - значит юзер пароль менять не хочет, - игнорируем.
-  validate :correct_old_password, on: :update, if: -> { password.present? }
+  # Если юзера меняет админ, тогда эту валидацию делать не нужно
+  validate :correct_old_password, on: :update, if: -> { password.present? && !admin_edit }
 
   # Проверка корректности введенного email, чтобы не ввести левый email!
   # https://github.com/micke/valid_email2

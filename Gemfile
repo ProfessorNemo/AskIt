@@ -13,8 +13,9 @@ gem 'sqlite3', '~> 1.4', '= 1.4.2'
 gem 'puma', '~> 5.0'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '6.0.0.beta.7'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.11'
+# Сериализатор - это программный код, с помощью которого объекты ruby превращаются
+# в json. Сериализатор работает быстрее, чем 'jbuilder', '~> 2.11'
+gem 'blueprinter'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password

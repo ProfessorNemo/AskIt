@@ -5,10 +5,9 @@ module Api
       tags = Tag.arel_table
       # найти  все теги, заголовки которых содержат слово "{params[:term]}"
       @tags = Tag.where(tags[:title].matches("%#{params[:term]}%"))
-      # отвечать только в формате json
-      respond_to do |format|
-        format.json
-      end
+
+      # render(@tags) выполнит сериализацию и превратит коллекцию тегов в json
+      render json: TagBlueprint.render(@tags)
     end
   end
 end
