@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # сериализатор
 class TagBlueprint < Blueprinter::Base
   # для каждого тега берем его id

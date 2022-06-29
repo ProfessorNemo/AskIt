@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include Blacklist
   # ролей может быть сколько угодно, наприер 3 - superadmin....
   # Например: "u.admin_role?" - здесь role - suffix
   enum role: { basic: 0, moderator: 1, admin: 2 }, _suffix: :role
@@ -41,12 +42,29 @@ class User < ApplicationRecord
   # Опция mx — тип записи в DNS, который связан с почтовыми серверами. Т.е. он умеет проверять по DNS,
   # существует ли такая доменная зона вообще, или нет. Обращение к DNS занимает какое-то время, поэтому
   # обойдемся без обращения.
+
   validates :email, presence: true, uniqueness: true, 'valid_email_2/email': true
 
   # проверка для сложности пароля
   validate :password_complexity
 
   validate :password_presence
+
+  validate :necessary_email
+
+  validate :necessary_name
+
+  # не гость
+  def guest?
+    false
+  end
+
+  # Юзер м.б. автором вопроса, ответа, комментария, поэтому "obj".
+  # И скажем obj.user == self (т.е.  obj.user - это сам юзер).
+  # У вопросов, ответом и комм-ев есть метод "user"
+  def author?(obj)
+    obj.user == self
+  end
 
   # сгенерировать token, на основе которого будем делать хэш
   def remember_me
@@ -117,9 +135,7 @@ class User < ApplicationRecord
     # Regexp extracted from https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
     return if password.blank? || password =~ /(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])/
 
-    msg = 'complexity requirement not met. Length should be 8-70 characters and ' \
-          'include: 1 uppercase, 1 lowercase, 1 digit and 1 special character'
-    errors.add :password, msg
+    errors.add(:password, :common_error)
   end
 
   # Нужно добавить для пароля сообщение, что он пустой, но не в том случае, если
@@ -127,5 +143,17 @@ class User < ApplicationRecord
   # пароль можно указывать, а можно не указывать
   def password_presence
     errors.add(:password, :blank) if password_digest.blank?
+  end
+
+  # проверка подходящего email для регистрации
+  def necessary_email
+    blacklist
+    errors.add(:email, :registration_error) if blacklist.any?(email.split('@')[0])
+  end
+
+  # проверка подходящего имени для регистрации
+  def necessary_name
+    blacklist
+    errors.add(:name, :registration_error) if blacklist.any?(name.downcase)
   end
 end

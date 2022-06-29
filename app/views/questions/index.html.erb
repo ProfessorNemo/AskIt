@@ -24,7 +24,10 @@
 <% end %>
 </section>
 
-<%= link_to t('.new'), new_question_path, class: 'btn btn-primary btn-lg mb-3' %>
+<%# для нового вопроса question нет, поэтому передаем название политики %>
+<% if policy(:question).new? %>
+  <%= link_to t('.new'), new_question_path, class: 'btn btn-primary btn-lg mb-3' %>
+<% end %>
 
 <%# данная навигация показывается в том случае, если количество страниц больше 1 %>
 <%# pagination @questions %>

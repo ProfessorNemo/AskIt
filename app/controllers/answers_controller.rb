@@ -7,8 +7,9 @@ class AnswersController < ApplicationController
   # и для create и для destroy
   # порядок action важен: сначала идет вопрос, потом ответ
   before_action :set_question!
-
   before_action :set_answer!, except: :create
+  before_action :authorize_answer!
+  after_action :verify_authorized
 
   def create
     # создаваемые ответы привязываем к вопросу
@@ -63,5 +64,9 @@ class AnswersController < ApplicationController
   def set_answer!
     # ":id" => @answers (id ответа)
     @answer = @question.answers.find params[:id]
+  end
+
+  def authorize_question!
+    authorize(@answer || Answer)
   end
 end

@@ -2,6 +2,7 @@
 
 class Question < ApplicationRecord
   include Commentable
+  include Authorship
   # создается отношение на стороне Question
   # если удаляется вопрос, то и все зависимые ответы
   has_many :answers, dependent: :destroy

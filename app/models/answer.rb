@@ -2,6 +2,7 @@
 
 class Answer < ApplicationRecord
   include Commentable
+  include Authorship
   # Ответ принадлежит и вопросу и юзеру
   belongs_to :question
   belongs_to :user
