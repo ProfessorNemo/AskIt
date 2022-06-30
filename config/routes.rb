@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   # locale: /#{I18n.available_locales.join("|")}/ - проверка, что запрошенная локаль входит
   # в массив %i[en ru], а ("|") - "или" (локаль или такая, или такая.....)
   scope '(:locale)', locale: /#{I18n.available_locales.join("|")}/ do
+    # маршрут для сброса пароля (resource без s, т.к. не будем работать с id юзера)
+    # new create - запросить инструкции для сброса пароля, edit update - сбросить
+    resource :password_reset, only: %i[new create edit update]
+
     # create - будет проверять корректность введенных данных и пускать пользователя в систему
     # new - отображать форму для входа
     # destroy - позволить юзерам из системы выходить
