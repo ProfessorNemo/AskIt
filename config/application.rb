@@ -43,5 +43,7 @@ module AskIt
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+    # ActiveJob должен использовать адаптер Sidekiq
+    config.active_job.queue_adapter = :sidekiq
   end
 end
