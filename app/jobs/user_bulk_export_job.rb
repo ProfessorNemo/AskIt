@@ -11,8 +11,5 @@ class UserBulkExportJob < ApplicationJob
 
     Admin::UserMailer.with(user: initiator, stream: stream)
                      .bulk_export_done.deliver_now
-  ensure
-    # удалить зазипованный архив после того, как отправили
-    stream.purge
   end
 end

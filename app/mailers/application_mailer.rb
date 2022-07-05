@@ -2,6 +2,6 @@
 
 class ApplicationMailer < ActionMailer::Base
   # от кого будут письма приходить
-  default from: 'from@example.com'
+  default from: 'admin@example.com'
   layout 'mailer'
 end

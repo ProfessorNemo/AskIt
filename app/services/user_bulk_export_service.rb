@@ -7,10 +7,7 @@ class UserBulkExportService < ApplicationService
     # перемотка на начало, чтоб этот архив можно было отправить
     compressed_filestream.rewind
 
-    # ** если не сохранять архив, то:
     compressed_filestream
-    # ** или если требуется сохранить архив, то:
-    # ActiveStorage::Blob.create_and_upload! io: compressed_filestream, filename: 'users.zip'
   end
 
   private

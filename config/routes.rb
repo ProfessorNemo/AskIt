@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'sidekiq/web'
 
 # класс "Ограничение". М-д "matches" принимает запрос, который был отправлен
@@ -17,7 +18,6 @@ class AdminConstraint
 end
 
 Rails.application.routes.draw do
-
   # Смонтировать маршрут Sidekiq::Web , по какому адресу он будет доступен ('/sidekiq'),
   # т.е. подрубаем интерфейс sidekiq по адресу '/sidekiq'
   mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
