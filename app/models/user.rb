@@ -40,13 +40,7 @@ class User < ApplicationRecord
   validate :correct_old_password, on: :update, if: -> { password.present? && !admin_edit }
 
   # Проверка корректности введенного email, чтобы не ввести левый email!
-  # https://github.com/micke/valid_email2
-  # Опция mx — тип записи в DNS, который связан с почтовыми серверами. Т.е. он умеет проверять по DNS,
-  # существует ли такая доменная зона вообще, или нет. Обращение к DNS занимает какое-то время, поэтому
-  # обойдемся без обращения.
-
-  validates :email, presence: true, uniqueness: true, 'valid_email_2/email': true
-
+  validates :email, presence: true, uniqueness: true, email: true
   # проверка для сложности пароля
   validate :password_complexity
 

@@ -67,6 +67,8 @@ en:
       success: Answer updated!
   en: English
   global:
+    errors:
+      invalid_format: has invalid format
     user:
       roles:
         basic: Basic
