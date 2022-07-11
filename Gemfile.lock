@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/faker-ruby/faker.git
-  revision: 2333f9ee4a4e1d8329e19f9e4b07e927648add7c
+  revision: e36fb2bc4a75d8eb1116a6514c356c2bcf951538
   branch: master
   specs:
     faker (2.21.0)
@@ -111,6 +111,8 @@ GEM
     concurrent-ruby (1.1.10)
     connection_pool (2.2.5)
     crass (1.0.6)
+    cssbundling-rails (1.1.1)
+      railties (>= 6.0.0)
     database_cleaner-active_record (2.0.1)
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
@@ -139,8 +141,10 @@ GEM
     globalid (1.0.0)
       activesupport (>= 5.0)
     htmlentities (4.3.4)
-    i18n (1.10.0)
+    i18n (1.11.0)
       concurrent-ruby (~> 1.0)
+    jsbundling-rails (1.0.3)
+      railties (>= 6.0.0)
     json (2.6.2)
     launchy (2.5.0)
       addressable (~> 2.7)
@@ -202,8 +206,6 @@ GEM
     rack (2.2.4)
     rack-mini-profiler (3.0.0)
       rack (>= 1.2.0)
-    rack-proxy (0.7.2)
-      rack
     rack-test (2.0.2)
       rack (>= 1.3)
     rails (7.0.3)
@@ -276,12 +278,18 @@ GEM
       nokogiri (>= 1.10.8)
       rubyzip (>= 1.3.0)
     rubyzip (2.3.2)
-    semantic_range (3.0.0)
     sidekiq (6.5.1)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
     spring (4.0.0)
+    sprockets (4.1.1)
+      concurrent-ruby (~> 1.0)
+      rack (> 1, < 3)
+    sprockets-rails (3.4.2)
+      actionpack (>= 5.2)
+      activesupport (>= 5.2)
+      sprockets (>= 3.0.0)
     sqlite3 (1.4.4)
     strscan (3.0.3)
     thor (1.2.1)
@@ -295,11 +303,6 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webpacker (6.0.0.rc.6)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -318,10 +321,12 @@ DEPENDENCIES
   byebug
   caxlsx (~> 3.2)
   caxlsx_rails (~> 0.6)
+  cssbundling-rails (~> 1.1.1)
   database_cleaner-active_record
   dotenv-rails (~> 2.7)
   draper (~> 4.0)
   faker!
+  jsbundling-rails (~> 1.0.3)
   letter_opener
   listen (~> 3.3)
   lokalise_rails (~> 5)
@@ -339,10 +344,10 @@ DEPENDENCIES
   rubyzip (~> 2.3)
   sidekiq (~> 6.5)
   spring
+  sprockets-rails (~> 3.4.2)
   sqlite3 (~> 1.4.4)
   tzinfo-data
   web-console (>= 4.1.0)
-  webpacker (= 6.0.0.rc.6)
 
 RUBY VERSION
    ruby 3.0.3p157

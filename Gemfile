@@ -11,8 +11,6 @@ gem 'rails', '~> 7.0.3'
 gem 'sqlite3', '~> 1.4.4'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '6.0.0.rc.6'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
@@ -53,6 +51,10 @@ gem 'sidekiq', '~> 6.5'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
+
+gem 'cssbundling-rails', '~> 1.1.1'
+gem 'jsbundling-rails', '~> 1.0.3'
+gem 'sprockets-rails', '~> 3.4.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
