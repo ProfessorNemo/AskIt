@@ -1,49 +1,27 @@
 <% provide :page_title, @question.title %>
 <% currently_at t('menu.questions') %>
 
-<h1 class="mb-4"><%= @question.title %></h1>
-
-<time datetime="<%= @question.formatted_created_at %>">
-  <%= @question.formatted_created_at %>
-</time>
-
-<div class="lead my-3">
-  <%= sanitize @question.body %>
-</div>
-
-<div class="mb-3">
-  <%= @question.user.gravatar %>
-  <%= @question.user.name_or_email %>
-</div>
+<article class="mb-3">
+  <%= render @question %>
+</article>
 
 <%= render 'comments/commentable', commentable: @question, comment: @comment,
        html_id: 'questionComments' %>
 
-<div class="btn-group">
-  <%= link_to t('global.button.show'), question_path(@question), class: 'btn btn-primary' %>
-  <% if policy(@question).edit? %>
-    <%= link_to t('global.button.edit'), edit_question_path(@question), class: 'btn btn-secondary' %>
-  <% end %>
-  <% if policy(@question).destroy? %>
-    <%= link_to t('global.button.delete'), question_path(@question), class: 'btn btn-danger',
-        data: {turbo_method: :delete, turbo_confirm: t('global.dialog.you_sure')} %>
-  <% end %>
-</div>
 
-<hr class="my-3">
+<h2 class="mb-3"><%= t '.write_answer' %></h2>
 
-  <h2 class="mb-3"><%= t '.write_answer' %></h2>
+<%= render 'answers/form' %>
 
-  <%= render 'answers/form' %>
+<h2 class="mt-5 mb-3"><%= t '.answers' %></h2>
 
-  <h2 class="mt-5 mb-3"><%= t '.answers' %></h2>
+<%# данная навигация показывается в том случае, если количество страниц больше 1 %>
+<%# pagination @questions %>
+<%= pagination @pagy %>
 
-  <%# данная навигация показывается в том случае, если количество страниц больше 1 %>
-  <%# pagination @questions %>
-  <%= pagination @pagy %>
+<%= render partial: 'answers/answer', collection: @answers,
+  as: :answer, locals: {question: @question} %>
 
-  <%= render partial: 'answers/answer', collection: @answers, as: :answer, locals: {question: @question} %>
-
-  <%# данная навигация показывается в том случае, если количество страниц больше 1 %>
-  <%# pagination @questions %>
-  <%= pagination @pagy %>
+<%# данная навигация показывается в том случае, если количество страниц больше 1 %>
+<%# pagination @questions %>
+<%= pagination @pagy %>

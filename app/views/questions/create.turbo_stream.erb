@@ -1,0 +1,5 @@
+<%# куда нужно отправить только что созданный вопрос
+prepend (м-д турбо-стрим) - засунет html render(@question) и засунет его
+в элемент с таким то id ('questions')%>
+<%= turbo_stream.prepend 'questions', render(@question) %>
+<%= prepend_flash %>

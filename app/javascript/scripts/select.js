@@ -51,4 +51,5 @@ const rerender = function() {
 }
 
 document.addEventListener("turbo:load", rerender)
+document.addEventListener("turbo:frame-render", rerender)
 document.addEventListener("turbo:render", rerender)

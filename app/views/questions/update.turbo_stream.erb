@@ -1,0 +1,4 @@
+<%# Не добавляем новый вопрос (prepend), а заменяем существующий
+replace, а в качестве айдишника сам вопрос @question и рендерим %>
+<%= turbo_stream.replace @question, render(@question) %>
+<%= prepend_flash %>

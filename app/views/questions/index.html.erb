@@ -10,11 +10,11 @@
   <%= form_with url: questions_path, method: :get do |f| %>
     <div class="mb-3">
       <%# {selected: params[:tag_ids]} - т.е. когда форма будет отправлена и страница перерисуется,
-                  		в этой форме выбирутся все те теги, которые выбраны для построения этого поиска.
-                  		required: true - чтоб эту форму нельзя было отправить пустой %>
+                              		в этой форме выбирутся все те теги, которые выбраны для построения этого поиска.
+                              		required: true - чтоб эту форму нельзя было отправить пустой %>
       <%# ajax — асинхронный запрос(чтобы теги подтягивались по необходимости) отправляться сюда "/api/tags"
-            и чтобы отсюда вытаскивать только те теги,
-            					которые подходят под критерии пользователя, т.е. исходя из того, что юзер напечатает %>
+                        и чтобы отсюда вытаскивать только те теги,
+                        					которые подходят под критерии пользователя, т.е. исходя из того, что юзер напечатает %>
     <%= f.collection_select :tag_ids, (@tags || []), :id, :title, {selected: params[:tag_ids]},
         multiple: true, required: true,
         class: 'js-multiple-select js-ajax-select w-100', data: {'ajax-url': '/api/tags'} %>
@@ -25,16 +25,29 @@
 </section>
 
 <%# для нового вопроса question нет, поэтому передаем название политики %>
-<% if policy(:question).new? %>
-  <%= link_to t('.new'), new_question_path, class: 'btn btn-primary btn-lg mb-3' %>
+  <% if policy(:question).new? %>
+  <%= link_to t('.new'), new_question_path,
+   class: 'btn btn-primary btn-lg mb-3',
+    data: { turbo_frame: dom_id(Question.new) } %>
+
+  <%# Вывести на странице новый турбо-фрейм тег Question.new
+    Question.new - объект, но основе которого мы генерируем идентификатор турбо-фрейма
+    с помощью метгода dom_id. Контент со страницы new_question_path вставлен будет в
+    турбо-фрейм Question.new %>
+    <div class="my-3"> <%= turbo_frame_tag Question.new %>
+  </div>
 <% end %>
 
 <%# данная навигация показывается в том случае, если количество страниц больше 1 %>
 <%# pagination @questions %>
-<%= pagination @pagy %>
+<%= turbo_frame_tag 'pagination_pagy' do %>
+  <%= pagination @pagy %>
 
-<%= render @questions %>
+  <%= turbo_frame_tag 'questions' do %>
+    <%= render @questions %>
+  <% end %>
 
-<%# данная навигация показывается в том случае, если количество страниц больше 1 %>
-<%# pagination @questions %>
-<%= pagination @pagy %>
+  <%# данная навигация показывается в том случае, если количество страниц больше 1 %>
+  <%# pagination @questions %>
+  <%= pagination @pagy %>
+<% end %>

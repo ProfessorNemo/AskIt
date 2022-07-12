@@ -4,6 +4,10 @@ module ApplicationHelper
   # модуль для фронтенда для выдачи на экран навигации для пользователя
   include Pagy::Frontend
 
+  def prepend_flash
+    turbo_stream.prepend 'flash', partial: 'shared/flash'
+  end
+
   # данная навигация показывается в том случае, если количество страниц больше 1
   def pagination(obj)
     # raw - для обработки разметки правильным образом

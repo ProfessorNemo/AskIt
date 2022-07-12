@@ -23,8 +23,14 @@ class QuestionsController < ApplicationController
   # удалить вопрос
   def destroy
     @question.destroy
-    flash[:success] = t('.success')
-    redirect_to questions_path, status: :see_other
+    respond_to do |format|
+      format.html do 
+        flash[:success] = t('.success')
+        redirect_to questions_path, status: :see_other
+      end
+
+      format.turbo_stream { flash.now[:success] = t('.success') }
+    end
   end
 
   # редактировать вопрос
@@ -33,8 +39,17 @@ class QuestionsController < ApplicationController
   # обновить наш вопрос с новыми параметрами
   def update
     if @question.update question_params
-      flash[:success] = t('.success')
-      redirect_to questions_path
+      respond_to do |format|
+        format.html do
+          flash[:success] = t('.success')
+          redirect_to questions_path
+        end
+
+        format.turbo_stream do
+          @question = @question.decorate
+          flash.now[:success] = t('.success')
+        end
+      end
     else
       render :edit, status: :unprocessable_entity
     end
@@ -52,7 +67,7 @@ class QuestionsController < ApplicationController
   # вопросы, которые уже разбиты по страничкам
   def index
     @tags = Tag.where(id: params[:tag_ids]) if params[:tag_ids]
-    @pagy, @questions = pagy Question.all_by_tags(@tags)
+    @pagy, @questions = pagy Question.all_by_tags(@tags), link_extra: 'data-turbo-frame="pagination_pagy"'
     @questions = @questions.decorate
   end
 
@@ -69,11 +84,21 @@ class QuestionsController < ApplicationController
     # если вопрос сохранить удалось, перенаправить пользователя по пути /questions
     # приходит ответ от сервера 302 "переходи на другую страницу"
     if @question.save
-      flash[:success] = t('.success')
-      redirect_to questions_path
+      respond_to do |format|
+        format.html do
+          flash[:success] = t('.success')
+          redirect_to questions_path
+        end
+
+        format.turbo_stream do
+          @question = @question.decorate
+          # now - чтоб при перезагрузке страницы не появлялся
+          flash.now[:success] = t('.success')
+        end
+      end
     else
       # нужно отрендерить еще раз представление "new.html.erb"
-      render :new, status: :unprocessable_entity
+      render :new
     end
   end
 
