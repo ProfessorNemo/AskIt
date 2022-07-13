@@ -12,3 +12,4 @@ Typically it will look something like this in the URL: http://127.0.0.1:3000
 
 Starting from the 23rd branch, the application is launched using the "bin / dev" command.
 Branch 21 migrated from Rails 6 to Rails 7
+
