@@ -1,24 +1,11 @@
-# README
+BASIC PROJECT ON RAILS
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby on Rails MVC application.
 
-Things you may want to cover:
+An online forum where a user can answer/reply to other users questions or prompts that are posted.
 
-* Ruby version
+You can write question and comment, edit, delete.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+To start the application type in "rails s"
+Following this, you will be able to access your local host server:
+Typically it will look something like this in the URL: http://127.0.0.1:3000
