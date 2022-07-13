@@ -1,12 +1,18 @@
 require:
   - rubocop-performance
   - rubocop-rails
+  - rubocop-i18n
 
 AllCops:
   NewCops: enable
-  TargetRubyVersion: 3.0.3
+  TargetRubyVersion: 3.0
 
 Style/Documentation:
+  Enabled: false
+
+I18n/RailsI18n:
+  Enabled: true
+I18n/GetText:
   Enabled: false
 
 Rails/FilePath:
@@ -14,3 +20,9 @@ Rails/FilePath:
 
 Layout/EndOfLine:
    Enabled: False
+
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/AbcSize:
+  Max: 20

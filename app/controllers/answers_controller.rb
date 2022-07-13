@@ -1,5 +1,6 @@
-# frozen_string_literal: true
+  # frozen_string_literal: true
 
+  # rubocop:disable all
 class AnswersController < ApplicationController
   include QuestionsAnswers
   # модуль для якорей
@@ -14,12 +15,20 @@ class AnswersController < ApplicationController
   def create
     # создаваемые ответы привязываем к вопросу
     @answer = @question.answers.build answer_create_params
-
+    @answer = @answer.decorate
     if @answer.save
-      flash[:success] = t '.success'
-      # переводит пользователя на машрут, который заново обрабатывается
-      # обращается к нужному представлению "show", и все перем-е устанавливаются
-      redirect_to question_path(@question)
+      respond_to do |format|
+        format.html do
+          flash[:success] = t '.success'
+          # переводит пользователя на машрут, который заново обрабатывается
+          # обращается к нужному представлению "show", и все перем-е устанавливаются
+          redirect_to question_path(@question)
+        end
+
+        format.turbo_stream do
+          flash.now[:success] = t '.success'
+        end
+      end
     else
       load_question_answers(do_render: true)
     end
@@ -27,18 +36,33 @@ class AnswersController < ApplicationController
 
   def destroy
     @answer.destroy
-    flash[:success] = t '.success'
-    redirect_to question_path(@question), status: :see_other
+    respond_to do |format|
+      format.html do
+        flash[:success] = t '.success'
+        redirect_to question_path(@question), status: :see_other
+      end
+
+      format.turbo_stream { flash.now[:success] = t('.success') }
+    end
   end
 
   def edit; end
 
   def update
     if @answer.update answer_update_params
-      flash[:success] = t '.success'
-      # + переброска к конкретному ответу на странице вопроса
-      # <%= tag.article class: 'mb-3 card', id: dom_id(answer) do %> <% end %>
-      redirect_to question_path(@question, anchor: dom_id(@answer))
+      respond_to do |format|
+        format.html do
+          flash[:success] = t '.success'
+          # + переброска к конкретному ответу на странице вопроса
+          # <%= tag.article class: 'mb-3 card', id: dom_id(answer) do %> <% end %>
+          redirect_to question_path(@question, anchor: dom_id(@answer))
+        end
+
+        format.turbo_stream do
+          @answer = @answer.decorate
+          flash.now[:success] = t '.success'
+        end
+      end
     else
       render :edit
     end
@@ -66,7 +90,8 @@ class AnswersController < ApplicationController
     @answer = @question.answers.find params[:id]
   end
 
-  def authorize_question!
+  def authorize_answer!
     authorize(@answer || Answer)
   end
 end
+# rubocop:enable all

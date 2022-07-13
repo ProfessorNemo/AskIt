@@ -1,5 +1,6 @@
-# frozen_string_literal: true
+  # frozen_string_literal: true
 
+  # rubocop:disable all
 class QuestionsController < ApplicationController
   include QuestionsAnswers
   # Проверка, что юзер вошел в систему во всех случаях, кроме когда он
@@ -24,7 +25,7 @@ class QuestionsController < ApplicationController
   def destroy
     @question.destroy
     respond_to do |format|
-      format.html do 
+      format.html do
         flash[:success] = t('.success')
         redirect_to questions_path, status: :see_other
       end
@@ -124,3 +125,4 @@ class QuestionsController < ApplicationController
     authorize(@question || Question)
   end
 end
+# rubocop:enable all

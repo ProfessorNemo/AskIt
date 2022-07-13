@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable all
 class CommentsController < ApplicationController
   include QuestionsAnswers
   before_action :set_commentable!
@@ -10,25 +11,38 @@ class CommentsController < ApplicationController
     # создать новый комментарий для commentable
     @comment = @commentable.comments.build comment_params
     authorize @comment
+    @comment = @comment.decorate
 
     if @comment.save
-      flash[:success] = t '.success'
-      redirect_to question_path(@question)
+      respond_to do |format|
+        format.html do
+          flash[:success] = t '.success'
+          redirect_to question_path(@question)
+        end
+
+        format.turbo_stream { flash.now[:success] = t('.success') }
+      end
     # редирект на элемент, для которого писался комментарий, но нет метода show
     # для контроллера "answers и нужного маршрута
     # redirect_to @commentable
     else
-      @comment = @comment.decorate
       load_question_answers do_render: true
     end
   end
 
   def destroy
-    comment = @commentable.comments.find params[:id]
-    authorize comment
-    comment.destroy
-    flash[:success] = t '.success'
-    redirect_to question_path(@question), status: :see_other
+    @comment = @commentable.comments.find params[:id]
+    authorize @comment
+
+    @comment.destroy
+    respond_to do |format|
+      format.html do
+        flash[:success] = t '.success'
+        redirect_to question_path(@question), status: :see_other
+      end
+
+      format.turbo_stream { flash.now[:success] = t('.success') }
+    end
   end
 
   private
@@ -55,3 +69,4 @@ class CommentsController < ApplicationController
     @question = @commentable.is_a?(Question) ? @commentable : @commentable.question
   end
 end
+# rubocop:enable all

@@ -5,9 +5,7 @@
   <%= render @question %>
 </article>
 
-<%= render 'comments/commentable', commentable: @question, comment: @comment,
-       html_id: 'questionComments' %>
-
+<%= render 'comments/commentable', commentable: @question, comment: @comment %>
 
 <h2 class="mb-3"><%= t '.write_answer' %></h2>
 
@@ -19,8 +17,10 @@
 <%# pagination @questions %>
 <%= pagination @pagy %>
 
-<%= render partial: 'answers/answer', collection: @answers,
-  as: :answer, locals: {question: @question} %>
+<%= turbo_frame_tag 'answers' do %>
+  <%= render partial: 'answers/answer', collection: @answers,
+      as: :answer, locals: {question: @question} %>
+<% end %>
 
 <%# данная навигация показывается в том случае, если количество страниц больше 1 %>
 <%# pagination @questions %>

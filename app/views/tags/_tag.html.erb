@@ -2,6 +2,7 @@
 будут выбираться те вопросы, которые этому тегу принадлежат %>
 <%= link_to questions_path(tag_ids: tag),
   class: 'badge rounded-pill bg-light text-dark d-inline-block px-2 pt-1 pb-2 me-1',
+  # будем обновлять (перерисовывать) всю страницу
   data: {turbo_frame: '_top'} do %>
   <small><%= tag.title %></small>
 <% end %>
