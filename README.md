@@ -1,24 +1,14 @@
-# README
+BASIC PROJECT ON RUBY ON RUBY ON RAILS
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby on Rails MVC application.
 
-Things you may want to cover:
+An online forum where a user can answer/reply to other users questions or prompts that are posted.
 
-* Ruby version
+You can write question and comment, edit, delete.
 
-* System dependencies
+To start of the application in the master branch is carried out by the command "bin/dev".
+Following this, you will be able to access your local host server:
+Typically it will look something like this in the URL: http://127.0.0.1:3000
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Starting from the 23rd branch, the application is launched using the "bin / dev" command.
+Branch 21 migrated from Rails 6 to Rails 7
