@@ -59,14 +59,14 @@ gem 'bootsnap', '>= 1.4.4', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
-  gem 'database_cleaner'
-  gem 'pry-rails'
-  gem 'rspec-rails', '>= 5.1.2'
-  gem "factory_bot_rails"
-  gem 'rails-controller-testing'
   gem 'capybara'
+  gem 'database_cleaner'
+  gem 'factory_bot_rails'
+  gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
   gem 'launchy'
+  gem 'pry-rails'
+  gem 'rails-controller-testing'
+  gem 'rspec-rails', '>= 5.1.2'
   gem 'selenium-webdriver'
 end
 

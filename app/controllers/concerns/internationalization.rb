@@ -3,7 +3,6 @@
 module Internationalization
   extend ActiveSupport::Concern
 
-  # rubocop:disable Metrics/BlockLength
   included do
     # Нам нужно считывать запрошенную локаль из url и правильным образом устанавливать
     # ее в приложение. Это делается при каждом запросе от клиента.
@@ -73,5 +72,4 @@ module Internationalization
       { locale: I18n.locale }
     end
   end
-  # rubocop:enable Metrics/BlockLength
 end

@@ -122,12 +122,16 @@ class User < ApplicationRecord
 
   # проверка подходящего email для регистрации
   def necessary_email
+    return if email.nil?
+
     blacklist
     errors.add(:email, :registration_error) if blacklist.any?(email.split('@')[0])
   end
 
   # проверка подходящего имени для регистрации
   def necessary_name
+    return if name.nil?
+
     blacklist
     errors.add(:name, :registration_error) if blacklist.any?(name.downcase)
   end

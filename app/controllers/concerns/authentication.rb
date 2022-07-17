@@ -4,7 +4,6 @@
 module Authentication
   extend ActiveSupport::Concern
 
-  # rubocop:disable Metrics/BlockLength
   included do
     private
 
@@ -88,5 +87,4 @@ module Authentication
     # но и в представлениях (сделаем их еще и хэлперами)
     helper_method :current_user, :user_signed_in?
   end
-  # rubocop:enable Metrics/BlockLength
 end

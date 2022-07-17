@@ -14,3 +14,6 @@ Rails/FilePath:
 
 Layout/EndOfLine:
    Enabled: False
+
+convention:Metrics/BlockLength:
+  Max: 50
