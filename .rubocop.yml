@@ -16,4 +16,4 @@ Layout/EndOfLine:
    Enabled: False
 
 convention:Metrics/BlockLength:
-  Max: 50
+  Max: 70

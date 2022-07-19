@@ -2,20 +2,30 @@
 
 require 'rails_helper'
 
-RSpec.describe User do
-  # let(:user) { User.new({ name: 'John', email: 'test@example.ru', password_digest: '123' }) }
+RSpec.shared_examples_for 'a user' do
+  it { is_expected.to respond_to(:name) }
+  it { is_expected.to respond_to(:role) }
+  it { is_expected.to respond_to(:email) }
+end
 
+RSpec.describe User, type: :model do
+  it_behaves_like 'a user'
   context 'validates' do
-    # specify { expect(user.name).to be_truthy }
+    it 'should be valid' do
+      user = build(:user)
+      expect(user).to be_valid
+    end
 
-    it 'email is required' do
+    it 'email is true and users save to base' do
       user = build(:user)
       expect(user.email).to be_truthy
+      # сохраняется объект без ошибок
+      expect { user.save }.not_to raise_error
     end
 
     it 'name is required' do
       user = build(:user, name: nil)
-      expect(user).not_to be_valid
+      expect(user).to be_valid
     end
 
     it 'email is required' do
@@ -28,14 +38,15 @@ RSpec.describe User do
       expect(user).not_to be_valid
     end
 
-    it 'is admin' do
+    specify 'password_digest' do
       user = build(:user, password_digest: '123')
       expect(user.password_digest).to eq('123')
     end
 
-    it '#build' do
+    it 'User name is John and basic' do
       user = build(:user)
       expect(user.name).to eq('John')
+      expect(user.role).to eq('basic')
     end
 
     it 'email is correct' do
@@ -43,9 +54,18 @@ RSpec.describe User do
       expect(user).not_to be_valid
     end
 
-    it 'is admin' do
+    it 'user is empty' do
       user = attributes_for(:user)
       expect(user).not_to be_empty
+      puts user.inspect
+    end
+  end
+
+  context 'validates_2' do
+    it 'validates_user_admin' do
+      user = build_stubbed(:admin)
+      expect(user.role).to eq('admin')
+      expect(user.id).to be_truthy
       puts user.inspect
     end
   end
