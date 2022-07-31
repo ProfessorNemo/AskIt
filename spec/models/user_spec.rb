@@ -11,7 +11,7 @@ end
 RSpec.describe User, type: :model do
   it_behaves_like 'a user'
   context 'validates' do
-    it 'should be valid' do
+    it 'is valid' do
       user = build(:user)
       expect(user).to be_valid
     end

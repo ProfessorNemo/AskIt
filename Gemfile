@@ -82,6 +82,7 @@ group :development do
   gem 'rubocop', '~> 1.30', require: false
   gem 'rubocop-performance', '~> 1.14', require: false
   gem 'rubocop-rails', '~> 2.14', require: false
+  gem 'rubocop-rspec', require: false
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.

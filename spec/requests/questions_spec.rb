@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.configure { |c| c.before { expect(controller).not_to be_nil } }
@@ -6,7 +8,7 @@ RSpec.describe QuestionsController, type: :controller do
   describe 'GET index' do
     it 'has a 200 status code' do
       get :index
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:ok)
     end
   end
 
@@ -32,6 +34,6 @@ RSpec.describe QuestionsController, type: :controller do
 
     it { expect(get: '/ru/questions/25').to route_to(controller: 'questions', action: 'show', locale: 'ru', id: '25') }
 
-    it { expect(get: '/ru/question/250').to_not be_routable }
+    it { expect(get: '/ru/question/250').not_to be_routable }
   end
 end
